@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import {DOCUMENT} from '@angular/common'
 @Component({
   selector: 'app-common',
   templateUrl: './common.component.html',
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CommonComponent implements OnInit {
   @Input() authorList: any;
   favrtAuthorList: any;
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private _document: Document) {}
 
   ngOnInit(): void {
     this.favrtAuthorList = this.getFavtAuthors();
@@ -39,6 +39,6 @@ export class CommonComponent implements OnInit {
     localStorage.removeItem(JSON.stringify(a._id));
     this.ngOnInit();
     this.getFavtAuthors()
-    window.location.reload()
+      this._document.defaultView.location.reload();
   }
 }
