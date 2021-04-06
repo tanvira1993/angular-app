@@ -3,28 +3,42 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-common',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.css']
+  styleUrls: ['./common.component.css'],
 })
 export class CommonComponent implements OnInit {
-
   @Input() authorList: any;
-  constructor() { }
+  favrtAuthorList: any;
+  constructor() {}
 
   ngOnInit(): void {
+    this.favrtAuthorList = this.getFavtAuthors();
   }
 
-  check(key){
-  const found = this.authorList.some(el => el._id == key);
-  return found;
+  check(key) {
+    const found = this.favrtAuthorList.some((el) => el._id == key);
+    return found;
   }
 
-  addFavt(a){
-    localStorage.setItem(JSON.stringify(a._id),JSON.stringify(a))
+  getFavtAuthors() {
+    let get = [];
+    let keys = Object.keys(localStorage);
+    let i = keys.length;
+
+    while (i--) {
+      get.push(JSON.parse(localStorage.getItem(keys[i])));
+    }
+    return get;
   }
 
-  removeFavt(a){
+  addFavt(a) {
+    localStorage.setItem(JSON.stringify(a._id), JSON.stringify(a));
+    this.ngOnInit();
+  }
+
+  removeFavt(a) {
     localStorage.removeItem(JSON.stringify(a._id));
-
+    this.ngOnInit();
+    this.getFavtAuthors()
+    window.location.reload()
   }
-
 }

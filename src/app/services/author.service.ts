@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AuthorService{
     constructor(private httpClient: HttpClient){}
-    getAuthors() : Observable<any> {
-        return this.httpClient.get("https://api.quotable.io/authors?limit=10&skip=20")
+    getAuthors(skip) : Observable<any> {
+        return this.httpClient.get(`https://api.quotable.io/authors?limit=10&skip=${skip}`)
     }
 }
