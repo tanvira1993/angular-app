@@ -1,0 +1,7 @@
+<app-common [authorList]='authorList'></app-common>
+<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageIndex]="1"
+             [pageSizeOptions]="[5, 10, 25, 100]" 
+              (page)="pageEvent($event)">
+</mat-paginator>
